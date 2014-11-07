@@ -1,0 +1,57 @@
+These weights gave the best results for league 0
+probe	,0.288356
+zealot	,0.462645
+sentry	,0.850872
+stalker	,0.580425
+hightemplar	,0.958663
+darktemplar	,1
+immortal	,0.901554
+colossus	,0.998107
+archon	,0.673633
+observer	,1
+warpprism	,1
+phoenix	,1
+void ray	,1
+carrier	,0.975581
+mothership	,0.466964
+photon cannon	,0.22336
+oracle	,0.895251
+tempest	,0
+mothership core	,0.95779
+interceptor	,0.837489
+scv	,0.371258
+marine	,0.146031
+marauder	,0.349193
+reaper	,0.448295
+ghost	,0.235674
+hellion	,0.494294
+siegetank	,1
+thor	,0.983776
+viking	,0.483709
+medivac	,0.886552
+banshee	,0.554372
+raven	,0.922893
+battlecruiser	,1
+planetaryfortress	,0
+missileturret	,0
+widowmine	,0.770435
+drone	,0.322031
+zergling	,0.128277
+queen	,0.0864322
+baneling	,0.147796
+roach	,0.326797
+overlord	,0.00508682
+overseer	,0.124335
+hydralisk	,0.470965
+spinecrawler	,0.72778
+sporecrawler	,0
+mutalisk	,0.428043
+corruptor	,0.039019
+broodlord	,1
+broodling	,0
+infestor	,0.8744
+infestedterran	,0.0952788
+ultralisk	,1
+nydusworm	,0.319956
+swarmhost	,0.545549
+viper	,0.464269

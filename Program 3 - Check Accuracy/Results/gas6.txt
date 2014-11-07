@@ -1,0 +1,18 @@
+Reading in data
+Done reading data
+Test and training sets extracted.
+C:\Users\Kenny\Desktop\gasCost.csv
+4,22,55
+5,20,53
+6,21,53
+7,20,51
+8,30,50
+9,25,49
+10,27,46
+12,22,40
+14,19,31
+16,16,27
+18,14,26
+20,13,20
+25,7,9
+30,5,6

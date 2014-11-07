@@ -1,0 +1,57 @@
+These weights gave the best results for league 2
+probe	,0.204914
+zealot	,0.215118
+sentry	,0.590191
+stalker	,0.33517
+hightemplar	,0.978611
+darktemplar	,0.894525
+immortal	,0.910191
+colossus	,1
+archon	,0.997251
+observer	,0.74717
+warpprism	,0.936983
+phoenix	,0.446962
+void ray	,0.977888
+carrier	,1
+mothership	,0.856166
+photon cannon	,0.316492
+oracle	,0.926399
+tempest	,0.926898
+mothership core	,1
+interceptor	,0.327067
+scv	,0.261781
+marine	,0.0910567
+marauder	,0.249735
+reaper	,0.295803
+ghost	,0.678406
+hellion	,0.395085
+siegetank	,0.840354
+thor	,0.790293
+viking	,0.125053
+medivac	,0.486775
+banshee	,0.988231
+raven	,0.967227
+battlecruiser	,0.979526
+planetaryfortress	,0.0126824
+missileturret	,0.0946675
+widowmine	,0.351019
+drone	,0.194916
+zergling	,0.0678185
+queen	,0.375654
+baneling	,0.228441
+roach	,0.220718
+overlord	,0.108158
+overseer	,0.30651
+hydralisk	,0.291694
+spinecrawler	,0.00393609
+sporecrawler	,0.0249468
+mutalisk	,0.322511
+corruptor	,0.516462
+broodlord	,0.885185
+broodling	,0
+infestor	,0.164338
+infestedterran	,0.182348
+ultralisk	,0.987715
+nydusworm	,0.287864
+swarmhost	,0.444801
+viper	,0.30389

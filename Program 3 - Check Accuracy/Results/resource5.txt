@@ -1,0 +1,18 @@
+Reading in data
+Done reading data
+Test and training sets extracted.
+C:\Users\Kenny\Desktop\resourceCost.csv
+4,1225,2630
+5,1308,2582
+6,1337,2521
+7,1321,2429
+8,1264,2283
+9,1177,2118
+10,1135,2002
+12,1060,1733
+14,945,1495
+16,803,1205
+18,623,915
+20,484,693
+25,220,315
+30,114,155

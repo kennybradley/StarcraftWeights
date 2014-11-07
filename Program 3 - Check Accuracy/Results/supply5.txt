@@ -1,0 +1,18 @@
+Reading in data
+Done reading data
+Test and training sets extracted.
+C:\Users\Kenny\Desktop\supply.csv
+4,1258,2630
+5,1270,2582
+6,1331,2521
+7,1286,2429
+8,1236,2283
+9,1134,2118
+10,1110,2002
+12,981,1733
+14,881,1495
+16,754,1205
+18,603,915
+20,463,693
+25,219,315
+30,110,155

@@ -1,0 +1,18 @@
+Reading in data
+Done reading data
+Test and training sets extracted.
+C:\Users\Kenny\Desktop\mineralCost.csv
+4,2400,5017
+5,2563,4970
+6,2600,4900
+7,2629,4802
+8,2661,4662
+9,2645,4484
+10,2628,4247
+12,2491,3823
+14,2289,3316
+16,1965,2795
+18,1584,2226
+20,1292,1766
+25,624,841
+30,340,439
