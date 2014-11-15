@@ -226,10 +226,13 @@ int main(int argc, const char* args[])
 		//initialize the scores with the new variable scores
 		cout << "initial correct: " << scoreGames(trainingSet).first << endl;
 
-		double variation = 0.6;
+		double variation = 1;
+//		double variation = 0.6;
 
+		bool descent = true;
 		//changes within this loop are only affecting a couple games at a time, that doesn't seem right
-		while (variation > 0.001)
+//		while (variation > 0.001)
+		while (descent)
 		{
 			//Score games and get the base value correct
 			//ensures that all minutes are used and the sign is 1 so the previous score is subtracted, and the new score is added - canceling out for this case
@@ -237,32 +240,70 @@ int main(int argc, const char* args[])
 			int highestCorrect = correct;
 			vector<pair<int, char> > scores;
 
+			vector<double> gradient;
+
 			//	for each parameter, test the positive and negative variation and get the number of states it correctly classified
 			for (unsigned int param = 0; param < 60; param++)
 			{
-				//testing postive and negative changes on all variables
-				for (unsigned int positive = 0; positive < 2; positive++)
-				{
-					//keep the old score so we can calculate the new score quickly
-					double prevScore = variableScores[param];
+////////////////////////////////////////////
+//gradient descent
+				//keep the old score so we can calculate the new score quickly
+				double prevScore = variableScores[param];
+				//	if the change is positive use variation, if it is negative use -varation
+				variableScores[param] += -variation;
+				if (variableScores[param] < 0)
+					variableScores[param] = 0;
 
-					//	if the change is positive use variation, if it is negative use -varation
-					variableScores[param] += (positive == 1) ? variation : -variation;
-					if (variableScores[param] > 1)
-						variableScores[param] = 1;
-					else if (variableScores[param] < 0)
-						variableScores[param] = 0;
+				double negChange = prevScore - variableScores[param];
 
-					//send in the index of the parameter being changed, the previous value of the score, and false to make sure the changes are not saved
-					int updatedCorrect = scoreGames(trainingSet, 0, param * 2 + positive, prevScore, false).first;
+				//send in the index of the parameter being changed, the previous value of the score, and false to make sure the changes are not saved
+				int updatedNegCorrect = scoreGames(trainingSet, 0, param * 2, prevScore, false).first;
 
-					//record the number of correctly guessed states
-					scores.push_back(make_pair(updatedCorrect, param * 2 + positive));
-					//revert the variable to the previous value
-					variableScores[param] = prevScore;
-				}
+				//revert the variable to the previous value
+				variableScores[param] = prevScore;
+
+				variableScores[param] += variation;
+				if (variableScores[param] > 1)
+					variableScores[param] = 1;
+
+				double posChange = variableScores[param] - prevScore;
+
+				int updatedPosCorrect = scoreGames(trainingSet, 0, (param * 2) + 1, prevScore, false).first;
+
+				//change from 
+				gradient.push_back((double)(updatedPosCorrect - updatedNegCorrect) / (posChange + negChange));
+
+				//reset the variable score
+				variableScores[param] = prevScore;
+//end gradient
+///////////////////////////////////////////////////////////////////////
+
+
+				/*
+						//testing postive and negative changes on all variables
+						for (unsigned int positive = 0; positive < 2; positive++)
+								{
+								//keep the old score so we can calculate the new score quickly
+								double prevScore = variableScores[param];
+
+								//	if the change is positive use variation, if it is negative use -varation
+								variableScores[param] += (positive == 1) ? variation : -variation;
+								if (variableScores[param] > 1)
+								variableScores[param] = 1;
+								else if (variableScores[param] < 0)
+								variableScores[param] = 0;
+
+								//send in the index of the parameter being changed, the previous value of the score, and false to make sure the changes are not saved
+								int updatedCorrect = scoreGames(trainingSet, 0, param * 2 + positive, prevScore, false).first;
+
+								//record the number of correctly guessed states
+								scores.push_back(make_pair(updatedCorrect, param * 2 + positive));
+								//revert the variable to the previous value
+								variableScores[param] = prevScore;
+								}
+								*/
 			}
-
+			/*
 			//sort in decreasing order
 			stable_sort(scores.rbegin(), scores.rend());
 
@@ -291,21 +332,68 @@ int main(int argc, const char* args[])
 					cout << int(param) << " changed to " << variableScores[param] << " from " << prevScore << " increased to " << scores[countChange].first << endl;
 				}
 			}
+*/
 
+/////////////////////////////////////////////
+//gradient descent
+			//normalize the gradient
+			double magnitude = 0;
+			for (int c = 0; c < 60; c++)
+			{
+				magnitude += pow(gradient[c], 2);
+			}
+			magnitude = sqrt(magnitude);
+			//if there is a vector on the surface
+			if (magnitude > 0)
+			{
+				//turn the gradient into a unit vector
+				for (int c = 0; c < 60; c++)
+				{
+					gradient[c] = gradient[c] / magnitude;
+				}
+				//apply the gradient to variable scores
+				for (int c = 0; c < 60; c++)
+				{
+					cout << "var " << (c + 1) << " from " << variableScores[c] << " to ";
+					variableScores[c] += variation*gradient[c];
+					if (variableScores[c] < 0)
+						variableScores[c] = 0;
+					if (variableScores[c] > 1)
+						variableScores[c] = 1;
+
+					cout << variableScores[c] << endl;
+				}
+			}
+			//test score
+			int afterGradientScore = scoreGames(trainingSet).first;
+
+			cout << "From "<< correct << " to " << afterGradientScore << endl << endl;
+
+			//			test to see if the gradient increased the score
+			if (afterGradientScore <= correct) {
+				variation = variation*0.9;
+				if (variation < 0.001)
+					descent = false;
+			}
+//end gradient
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+//			scoreGames(trainingSet, 0, paramFull, prevScore, true);
 			//every time there is no variable that will increase the score, decrease the weight value and then try again
-			if (!updated)
-				variation = double(variation * 0.95);
+//			if (!updated)
+//				variation = double(variation * 0.95);
 
 		}
 
-		int simulatedResult = scoreGames(trainingSet).first;
-		int realResult = scoreGames(testingSet).first;
+		int trainResult = scoreGames(trainingSet).first;
+		int testResult = scoreGames(testingSet).first;
 
-		std::cout << "simulated game states correct = " << simulatedResult << " Out of a total of " << trainingSet->size() << " states" << endl;
-		std::cout << "real life game states correct = " << realResult << " Out of a total of " << testingSet->size() << " states" << endl;
+		std::cout << "Training game states correct = " << trainResult << " Out of a total of " << trainingSet->size() << " states" << endl;
+		std::cout << "Test game states correct = " << testResult << " Out of a total of " << testingSet->size() << " states" << endl;
 
 		//save results of each of the variables into the list of local maxima
-		localMaxima.push_back(make_pair(realResult, variableScores));
+		localMaxima.push_back(make_pair(testResult, variableScores));
 	}
 
 	if (localMaxima.size() == 0)
