@@ -215,7 +215,7 @@ int main(int argc, const char* args[])
 
 	cout << "Test and training sets established." << endl;
 
-	vector<pair<pair<int, int>, vector<double> > > localMaxima;
+	vector<pair<int, vector<double> > > localMaxima;
 
 	for (int runthrough = 0; runthrough < iterations; runthrough++)
 	{
@@ -393,7 +393,7 @@ int main(int argc, const char* args[])
 		std::cout << "Test game states correct = " << testResult << " Out of a total of " << testingSet->size() << " states" << endl;
 
 		//save results of each of the variables into the list of local maxima
-		localMaxima.push_back(make_pair(make_pair(trainResult, testResult), variableScores));
+		localMaxima.push_back(make_pair(testResult, variableScores));
 	}
 
 	if (localMaxima.size() == 0)
@@ -517,7 +517,7 @@ int main(int argc, const char* args[])
 
 	for (unsigned int top10 = 0; top10 < localMaxima.size() && top10 < 10; top10++){
 		variableScores = localMaxima[top10].second;
-		out << "Based on learned " << (top10 + 1) << ": " << localMaxima[top10].first.second << " out of " << testingSet->size() << endl;
+		out << "Based on learned " << (top10 + 1) << ": " << scoreGames(testingSet).first << " out of " << testingSet->size() << endl;
 	}
 
 	out.close();
